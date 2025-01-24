@@ -1,19 +1,23 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
+
+// Deshabilitar la cabecera X-Powered-By
+app.disable('x-powered-by');
 
 // Middleware para parsear el cuerpo de las peticiones
 app.use(bodyParser.json());
 
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root', // Cambia este valor según tu configuración
-  password: '', // Cambia este valor si tienes contraseña
-  database: 'gestion_citas'
+  host: process.env.LOCALHOST,
+  user: process.env.USER, // Cambia este valor según tu configuración
+  password: process.env.PASSWORD, // Cambia este valor si tienes contraseña
+  database: process.env.DATABASE
 });
 
 // Conectar a la base de datos
